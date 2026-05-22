@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransEcoTec - Admin Rutas</title>
+
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+
+    <nav class="navbar">
+        <div class="brand-container">
+            <button class="menu-toggle" id="menuToggleBtn"><i class="fas fa-bars"></i></button>
+            <a href="dashboard.html" class="navbar-brand">
+                <img src="images/transecotecRlogo.png" alt="TransEcoTec Logo" class="logo-img"> Admin
+            </a>
+        </div>
+        <div class="user-menu">
+            <span class="role-badge" style="background-color: #f39c12;">Administrador</span>
+            <span id="userNameDisplay">Cargando...</span>
+            <button class="logout-btn" onclick="cerrarSesion()"><i class="fas fa-sign-out-alt"></i> Salir</button>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="admin-usuarios.html"><i class="fas fa-users-cog"></i> Administración de Usuarios</a></li>
+                <li><a href="admin-rutas.html" class="active"><i class="fas fa-route"></i> Administración de Rutas</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Supervisión de Rutas</h1>
+                <p style="color: #666; margin-top: 5px;">Panel global para monitorizar todos los trayectos publicados por los transportistas y gestionar incidencias.</p>
+            </div>
+
+            <table class="tabla-admin">
+                <thead>
+                    <tr>
+                        <th>ID Ruta</th>
+                        <th>Transportista</th>
+                        <th>Origen</th>
+                        <th>Destino</th>
+                        <th>Capacidad Libre</th>
+                        <th>Fecha de Salida</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="listaRutasGlobales">
+                    <tr><td colspan="7" style="text-align: center;">Cargando rutas del sistema...</td></tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="images/transecotecRlogo.png" alt="TransEcoTec Logo" class="logo-img">
+            </div>
+            <div class="footer-links">
+                <a href="legal.html#aviso-legal">Aviso Legal</a>
+                <a href="legal.html#privacidad">Política de Privacidad</a>
+                <a href="legal.html#cookies">Política de Cookies</a>
+                <a href="legal.html#terminos">Términos y Condiciones</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 TransEcoTec&reg;. Todos los derechos reservados. Plataforma de transporte ecológico y eficiente.</p>
+        </div>
+    </footer>
+    <script src="js/admin-rutas.js"></script>
+</body>
+</html>

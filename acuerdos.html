@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransEcoTec - Mis Acuerdos</title>
+
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+
+    <nav class="navbar">
+        <div class="brand-container">
+            <button class="menu-toggle" id="menuToggleBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="dashboard.html" class="navbar-brand">
+                <img src="images/transecotecRlogo.png" alt="TransEcoTec Logo" class="logo-img">
+            </a>
+        </div>
+        <div class="user-menu">
+            <span class="role-badge" id="userRoleBadge">Rol</span>
+            <span id="userNameDisplay">Cargando...</span>
+            <button class="logout-btn" onclick="cerrarSesion()"><i class="fas fa-sign-out-alt"></i> Salir</button>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html"><i class="fas fa-home"></i> Inicio</a></li>
+                <li id="menuDinamico"></li>
+                <li><a href="buscar.html"><i class="fas fa-search"></i> Buscar Ofertas</a></li>
+                <li><a href="acuerdos.html" class="active"><i class="fas fa-handshake"></i> Mis Acuerdos</a></li>
+                <li><a href="perfil.html"><i class="fas fa-user-circle"></i> Mi Perfil</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Mis Acuerdos de Transporte</h1>
+                <p style="color: #666; margin-top: 5px;">Gestiona las peticiones de contacto recibidas y enviadas.</p>
+            </div>
+
+            <h2 class="seccion-titulo"><i class="fas fa-inbox"></i> Peticiones Recibidas</h2>
+            <div class="acuerdos-grid" id="recibidasContainer">
+                <p style="color: #999;">Cargando peticiones...</p>
+            </div>
+
+            <h2 class="seccion-titulo"><i class="fas fa-paper-plane"></i> Peticiones Enviadas</h2>
+            <div class="acuerdos-grid" id="enviadasContainer">
+                <p style="color: #999;">Cargando peticiones...</p>
+            </div>
+        </main>
+    </div>
+    
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="images/transecotecRlogo.png" alt="TransEcoTec Logo" class="logo-img">
+            </div>
+            <div class="footer-links">
+                <a href="legal.html#aviso-legal">Aviso Legal</a>
+                <a href="legal.html#privacidad">Política de Privacidad</a>
+                <a href="legal.html#cookies">Política de Cookies</a>
+                <a href="legal.html#terminos">Términos y Condiciones</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 TransEcoTec&reg;. Todos los derechos reservados. Plataforma de transporte ecológico y eficiente.</p>
+        </div>
+    </footer>
+    <script src="js/acuerdos.js"></script>
+</body>
+</html>

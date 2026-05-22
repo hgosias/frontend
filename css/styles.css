@@ -1,0 +1,1539 @@
+/* Variables de color para mantener la coherencia */
+:root {
+    --primary-green: #2ecc71;
+    --dark-blue: #2c3e50;
+    --light-bg: #f8f9fa;
+    --text-color: #333;
+    --border-color: #e1e5eb;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- SOLUCIÓN DEL FOOTER Y EL HUECO BLANCO (DVH) --- */
+html {
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body, .dashboard-body {
+    background-color: var(--light-bg);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* CAmbiado a 100vh para que el footer baje */
+    width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+/* Contenedor principal dividido (Solo para index.html) */
+.split-container {
+    display: flex;
+    flex-grow: 1; /* Permite crecer ocupando el hueco libre */
+}
+
+/* Mitad Izquierda (Branding) */
+.brand-section {
+    flex: 1;
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.75) 0%, rgba(20, 90, 50, 0.75) 100%), url('../images/camionIndex.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 2rem;
+    text-align: center;
+}
+
+.brand-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.brand-content p {
+    font-size: 1.2rem;
+    max-width: 400px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Mitad Derecha (Formularios) */
+.form-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 2rem;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Pestañas (Tabs) */
+.form-tabs {
+    display: flex;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--light-bg);
+}
+
+.tab-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 10px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    color: var(--dark-blue);
+    border-bottom: 3px solid var(--primary-green);
+}
+
+/* Formularios */
+.auth-form {
+    display: none; 
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.auth-form.active-form {
+    display: block;
+}
+
+h2 {
+    color: var(--dark-blue);
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 1.2rem;
+}
+
+.input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+}
+
+.input-group input, .input-group select {
+    width: 100%;
+    padding: 12px 15px 12px 45px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+    background-color: var(--light-bg);
+}
+
+.input-group input:focus, .input-group select:focus {
+    outline: none;
+    border-color: var(--primary-green);
+    background-color: white;
+}
+
+.main-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.main-btn:hover {
+    background-color: #27ae60;
+}
+
+.mensaje {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Animación suave para el cambio de formularios */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive para el Login/Registro en pantallas medianas */
+@media (max-width: 900px) {
+    .split-container {
+        flex-direction: column;
+    }
+    .brand-section {
+        flex: 0.4;
+        padding: 2rem 1rem;
+    }
+    .form-section {
+        flex: 0.6;
+        align-items: flex-start;
+        padding-top: 2rem;
+    }
+}
+
+/* ========================================= */
+/* --- MENU HAMBURGUESA Y DASHBOARD --- */
+/* ========================================= */
+
+.brand-container { display: flex; align-items: center; }
+
+.menu-toggle {
+    display: block; 
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-right: 15px;
+    transition: 0.3s;
+}
+
+.menu-toggle:hover { color: var(--primary-green); }
+
+/* --- ESTRUCTURA PRINCIPAL (FLEXBOX) --- */
+.dashboard-container {
+    flex-grow: 1; /* Estira el contenedor forzando al footer a bajar */
+    width: 100%;
+    max-width: 1400px; 
+    margin: 0 auto; /* Eliminados márgenes verticales que causan scroll extra */
+    padding: 2rem 1rem; /* Margen interior en su lugar */
+    display: flex; 
+    gap: 2rem;
+    align-items: flex-start;
+    overflow-x: hidden;
+}
+
+/* --- MENÚ LATERAL --- */
+.sidebar {
+    width: 250px;
+    flex-shrink: 0; 
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: margin-left 0.3s ease; 
+}
+
+.sidebar.oculto-pc {
+    margin-left: -300px; 
+}
+
+/* --- CONTENIDO PRINCIPAL --- */
+.main-content {
+    flex: 1;
+    min-width: 0;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+/* COMPORTAMIENTO EN MÓVILES Y TABLETS PARA EL DASHBOARD */
+@media (max-width: 768px) {
+    .dashboard-container { 
+        margin-bottom: 0; /* Aseguramos que nada empuje hacia abajo */
+        gap: 0; 
+    }
+    
+    .sidebar {
+        position: fixed;
+        left: -300px; 
+        top: 70px;
+        height: calc(100vh - 70px);
+        z-index: 1000;
+        margin-left: 0; 
+        border-radius: 0 10px 10px 0;
+        box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.activo-movil {
+        left: 0;
+    }
+}
+
+/* ========================================= */
+/* --- ESTILOS DEL FOOTER LEGAL --- */
+/* ========================================= */
+
+.site-footer {
+    background-color: var(--dark-blue);
+    color: white;
+    padding: 2rem 1rem 1rem 1rem;
+    margin-top: auto; /* Empuja el footer siempre hacia el final disponible */
+    border-top: 4px solid var(--primary-green);
+    width: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    overflow-x: hidden;
+}
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1.5rem;
+    gap: 20px;
+}
+
+.footer-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-green);
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--primary-green);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 1.5rem;
+    font-size: 0.85rem;
+    color: #888;
+}
+
+/* Responsividad del Footer para móviles */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-links {
+        justify-content: center;
+    }
+}
+
+/* ========================================= */
+/* --- ESTILOS DEL NAVBAR Y DASHBOARD --- */
+/* ========================================= */
+
+.navbar {
+    background-color: var(--dark-blue);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-green);
+    text-decoration: none;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.role-badge {
+    background-color: var(--primary-green);
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.logout-btn {
+    background: none;
+    border: 1px solid white;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+}
+
+/* Responsividad del Navbar para móviles */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.75rem 1rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        box-sizing: border-box;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    .user-menu {
+        gap: 8px;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .role-badge {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+    }
+
+    #userNameDisplay {
+        font-size: 0.85rem;
+        max-width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .logout-btn {
+        padding: 4px 10px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+
+    .logout-btn i {
+        display: none;
+    }
+}
+
+/* Actualizar dashboard-container para grid */
+.dashboard-container {
+    flex-grow: 1;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 1200px;
+    margin: 2rem auto 0;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 2rem;
+    overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        grid-template-columns: 1fr;
+        margin: 1rem auto 0;
+        padding: 0 0.75rem;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+}
+
+/* Actualizar sidebar */
+.sidebar {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    height: fit-content;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin-bottom: 10px;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 10px;
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
+    background-color: var(--light-bg);
+    color: var(--primary-green);
+    font-weight: bold;
+}
+
+.sidebar-menu i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+/* ========================================= */
+/* --- ESTILOS DEL MAIN-CONTENT --- */
+/* ========================================= */
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px; /* Crea espacio entre título y botón al colapsar en móvil */
+    border-bottom: 2px solid var(--light-bg);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+.welcome-header {
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--light-bg);
+    padding-bottom: 1rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: var(--light-bg);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-green);
+}
+
+.stat-card h3 {
+    font-size: 2rem;
+    color: var(--dark-blue);
+    margin-bottom: 5px;
+}
+
+.stat-card p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.action-area {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(46, 204, 113, 0.1);
+    border-radius: 8px;
+    border: 1px dashed var(--primary-green);
+}
+
+/* ========================================= */
+/* --- ESTILOS DE ACUERDOS --- */
+/* ========================================= */
+
+.seccion-titulo {
+    color: var(--dark-blue);
+    border-bottom: 2px solid var(--primary-green);
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    margin-top: 30px;
+    display: inline-block;
+}
+
+.acuerdos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+.acuerdo-card {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    position: relative;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.estado-Pendiente {
+    background: #fef9e7;
+    color: #f39c12;
+    border: 1px solid #f39c12;
+}
+
+.estado-Aceptada {
+    background: #e8f8f5;
+    color: var(--primary-green);
+    border: 1px solid var(--primary-green);
+}
+
+.estado-Rechazada {
+    background: #fdedec;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+.acuerdo-ruta {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--dark-blue);
+    margin-bottom: 10px;
+}
+
+.acuerdo-contacto {
+    background: var(--light-bg);
+    padding: 10px;
+    border-radius: 5px;
+    margin: 15px 0;
+    font-size: 0.9rem;
+    border-left: 3px solid var(--primary-green);
+}
+
+.acuerdo-contacto i {
+    color: var(--primary-green);
+    width: 20px;
+}
+
+.acuerdo-acciones {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-aceptar {
+    flex: 1;
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-aceptar:hover {
+    background-color: #27ae60;
+}
+
+.btn-rechazar {
+    flex: 1;
+    background-color: white;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-rechazar:hover {
+    background-color: #fdedec;
+}
+
+/* ========================================= */
+/* --- ESTILOS DE ESTADOS Y ROLES (ADMIN) ---*/
+/* ========================================= */
+.badge-empresa { background-color: #3498db !important; }
+.badge-transportista { background-color: #2ecc71 !important; }
+
+.badge-estado {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+}
+.badge-pendiente { background-color: #f39c12; }
+.badge-verificado { background-color: var(--primary-green); }
+.badge-rechazado { background-color: #e74c3c; }
+
+/* ========================================= */
+/* --- ESTILOS DE TABLAS (ADMIN) --- */
+/* ========================================= */
+
+.tabla-admin {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    table-layout: fixed;
+    flex: none;
+    padding: 6px 8px;
+}
+
+/* Cabeceras de la tabla */
+.tabla-admin th {
+    background-color: var(--dark-blue);
+    color: white;
+    padding: 10px 5px; /* Menos padding */
+    text-align: left;
+    font-size: 0.85rem;
+    /* Quitamos el nowrap para que títulos como "Nombre / Empresa" puedan ir en dos líneas si hace falta */
+    white-space: normal; 
+}
+
+/* Celdas de la tabla */
+.tabla-admin td {
+    padding: 10px 5px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.8rem; /* Letra un pelín más pequeña para que quepa todo */
+    word-wrap: break-word; /* Permite partir palabras muy largas */
+}
+
+/* Reparto estratégico de los anchos de las columnas (Suman 100%) */
+.tabla-admin th:nth-child(1) { width: 5%; }  /* ID */
+.tabla-admin th:nth-child(2) { width: 18%; } /* Nombre */
+.tabla-admin th:nth-child(3) { width: 22%; } /* Email (necesita más espacio) */
+.tabla-admin th:nth-child(4) { width: 13%; } /* Rol */
+.tabla-admin th:nth-child(5) { width: 12%; } /* Estado */
+.tabla-admin th:nth-child(6) { width: 12%; } /* CIF/DNI */
+.tabla-admin th:nth-child(7) { width: 18%; } /* Acciones (Botones) */
+
+/* Evitar que emails larguísimos rompan su columna */
+.tabla-admin td:nth-child(3) {
+    word-break: break-all; 
+}
+
+/* Ajustes extra para los botones de acción para que quepan bien */
+.btn-icon {
+    padding: 6px 8px; /* Hacemos los botones más compactos */
+    font-size: 0.8rem;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-ver { background-color: var(--dark-blue); }
+.btn-ver:hover { background-color: #1a252f; }
+
+.acciones-flex {
+    display: flex;
+    gap: 3px; /* Menos separación entre los botones */
+    flex-wrap: wrap; /* Si no caben los 4 botones, bajan a la siguiente línea suavemente */
+}
+
+.btn-aprobar {
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+    padding: 6px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 3px;
+    transition: 0.3s;
+}
+
+.btn-aprobar:hover {
+    background-color: #27ae60;
+}
+
+.btn-eliminar, .btn-rechazar {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-eliminar:hover, .btn-rechazar:hover {
+    background-color: #c0392b;
+}
+
+/* ========================================= */
+/* --- ESTILOS DEL BUSCADOR --- */
+/* ========================================= */
+
+.search-bar {
+    background: var(--light-bg);
+    padding: 1.5rem;
+    border-radius: 8px;
+    display: flex;
+    gap: 15px;
+    margin-bottom: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+    border: 1px solid var(--border-color);
+}
+
+.search-input {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0 15px;
+}
+
+.search-input i {
+    color: #999;
+    margin-right: 10px;
+}
+
+.search-input input {
+    width: 100%;
+    padding: 12px 0;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+}
+
+.btn-search {
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.btn-search:hover {
+    background-color: #27ae60;
+}
+
+.resultados-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.card-result {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    position: relative;
+    background: white;
+    transition: 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.card-result:hover {
+    border-color: var(--primary-green);
+    box-shadow: 0 5px 15px rgba(46, 204, 113, 0.1);
+    transform: translateY(-3px);
+}
+
+.card-cities {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--dark-blue);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-publisher {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 10px;
+}
+
+.card-details {
+    color: #555;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.card-details i {
+    width: 20px;
+    color: var(--primary-green);
+}
+
+.btn-ofertar {
+    width: 100%;
+    background-color: var(--dark-blue);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-ofertar:hover {
+    background-color: #1a252f;
+}
+
+/* ========================================= */
+/* --- ESTILOS DE CARGAS / RUTAS --- */
+/* ========================================= */
+
+.btn-new {
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    margin-top: 10px; /* Margen extra para pantallas pequeñas */
+}
+
+.btn-new:hover {
+    background-color: #27ae60;
+}
+
+.cargas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.carga-card {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    position: relative;
+}
+
+.carga-status {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #e8f8f5;
+    color: var(--primary-green);
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.carga-cities {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--dark-blue);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.carga-details {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.carga-details i {
+    width: 15px;
+    color: var(--primary-green);
+    margin-right: 5px;
+}
+
+.carga-desc {
+    background: var(--light-bg);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-style: italic;
+    margin-bottom: 15px;
+}
+
+/* ========================================= */
+/* --- ESTILOS DE RUTAS (ESPECÍFICO) --- */
+/* ========================================= */
+
+.rutas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.ruta-card {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    position: relative;
+}
+
+.ruta-status {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #e8f8f5;
+    color: var(--primary-green);
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.ruta-cities {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--dark-blue);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ruta-details {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.ruta-details i {
+    width: 15px;
+    color: var(--primary-green);
+    margin-right: 5px;
+}
+
+/* ========================================= */
+/* --- ESTILOS DE PERFIL --- */
+/* ========================================= */
+
+.perfil-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .perfil-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.perfil-card {
+    background: var(--light-bg);
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    height: fit-content;
+}
+
+.perfil-avatar {
+    width: 100px;
+    height: 100px;
+    background: var(--dark-blue);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    margin: 0 auto 1rem;
+}
+
+.estado-pendiente {
+    background-color: #f39c12;
+    color: white;
+}
+
+.estado-verificado {
+    background-color: var(--primary-green);
+    color: white;
+}
+
+.estado-rechazado {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.perfil-form .input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.perfil-form .input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--dark-blue);
+}
+
+.perfil-form .input-group input {
+    width: 100%;
+    padding: 12px 15px 12px 45px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.perfil-form .input-group i {
+    position: absolute;
+    left: 15px;
+    bottom: 14px;
+    color: #999;
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+
+/* ========================================= */
+/* --- ESTILOS DE MODAL --- */
+/* ========================================= */
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.modal {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal h2 {
+    margin-bottom: 2rem;
+    color: var(--dark-blue);
+    font-size: 1.5rem;
+}
+
+.close-btn {
+    float: right;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #999;
+    margin-top: -0.5rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* ========================================= */
+/* --- ESTILOS DEL LOGO EN IMAGEN --- */
+/* ========================================= */
+.logo-img {
+    max-height: 55px;
+    width: auto;
+    vertical-align: middle;
+    transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+    transform: scale(1.05); /* Pequeño efecto de zoom al pasar el ratón */
+}
+
+/* Logo en el footer un poco más grande */
+.footer-logo .logo-img {
+    max-height: 55px;
+}
+
+/* ========================================= */
+/* --- CORRECCIONES MÓVILES PARA TABLAS --- */
+/* ========================================= */
+
+@media (max-width: 768px) {
+    /* 1. Forzamos a la tabla a no salirse de la caja blanca y poder hacer scroll */
+    .tabla-admin {
+        display: block; 
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* Hace que el scroll táctil sea súper suave en móviles */
+        box-sizing: border-box;
+    }
+    
+    /* 2. Evitamos que las columnas se aplasten obligando al texto a estar en una sola línea */
+    .tabla-admin th, 
+    .tabla-admin td {
+        white-space: nowrap; 
+    }
+
+    /* 3. Reducimos un poco el padding interior de la caja blanca para aprovechar mejor la pantalla */
+    .main-content {
+        padding: 1.5rem 1rem; 
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        margin: 0;
+    }
+
+    /* Logo más pequeño en móviles */
+    .logo-img {
+        max-height: 40px;
+    }
+
+    .footer-logo .logo-img {
+        max-height: 45px;
+    }
+}
+
+/* ========================================= */
+/* --- ESTILOS PÁGINA LEGAL --- */
+/* ========================================= */
+
+.navbar-legal {
+    background-color: var(--dark-blue);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.navbar-legal .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-green);
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.navbar-legal .navbar-brand:hover {
+    transform: scale(1.08);
+}
+
+.navbar-legal-links {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.navbar-legal-links a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+.navbar-legal-links a:hover {
+    color: var(--primary-green);
+}
+
+.legal-container {
+    display: flex;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    flex-grow: 1;
+}
+
+.legal-sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    height: fit-content;
+    position: sticky;
+    top: 20px;
+}
+
+.legal-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.legal-menu li {
+    margin-bottom: 10px;
+}
+
+.legal-menu a {
+    display: block;
+    padding: 12px;
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.legal-menu a:hover,
+.legal-menu a:focus {
+    background-color: var(--light-bg);
+    color: var(--primary-green);
+    border-left-color: var(--primary-green);
+    font-weight: bold;
+}
+
+.legal-menu i {
+    margin-right: 10px;
+    width: 18px;
+    text-align: center;
+    color: var(--primary-green);
+}
+
+.legal-content {
+    flex: 1;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.legal-section {
+    margin-bottom: 3rem;
+    scroll-margin-top: 100px;
+}
+
+.legal-section h1 {
+    color: var(--dark-blue);
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--primary-green);
+}
+
+.legal-section h2 {
+    color: var(--dark-blue);
+    font-size: 1.3rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+}
+
+.legal-section h3 {
+    color: #555;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.legal-section p {
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.legal-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1rem;
+}
+
+.legal-list li {
+    padding: 8px 0 8px 30px;
+    position: relative;
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.legal-list li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--primary-green);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* Responsividad para la página legal */
+@media (max-width: 1024px) {
+    .legal-container {
+        flex-direction: column;
+        margin: 1.5rem auto;
+    }
+
+    .legal-sidebar {
+        width: 100%;
+        position: relative;
+        top: 0;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 1rem;
+    }
+
+    .legal-menu {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .legal-menu li {
+        margin-bottom: 0;
+        flex: 1;
+        min-width: 150px;
+    }
+
+    .legal-menu a {
+        text-align: center;
+        padding: 10px;
+    }
+
+    .legal-content {
+        padding: 1.5rem 1rem;
+    }
+
+    .legal-section h1 {
+        font-size: 1.6rem;
+    }
+
+    .legal-section h2 {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-legal {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+        gap: 10px;
+    }
+
+    .navbar-legal-links {
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .navbar-legal-links a {
+        font-size: 0.85rem;
+    }
+
+    .legal-container {
+        padding: 0 0.75rem;
+        margin: 1rem auto;
+        gap: 1rem;
+    }
+
+    .legal-sidebar {
+        padding: 1rem;
+    }
+
+    .legal-menu {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .legal-menu li {
+        margin-bottom: 8px;
+    }
+
+    .legal-menu a {
+        padding: 10px;
+        text-align: left;
+        font-size: 0.9rem;
+    }
+
+    .legal-content {
+        padding: 1rem;
+        border-radius: 8px;
+    }
+
+    .legal-section h1 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+
+    .legal-section h2 {
+        font-size: 1rem;
+        margin-top: 1rem;
+    }
+
+    .legal-section p {
+        font-size: 0.9rem;
+    }
+
+    .legal-list li {
+        padding: 6px 0 6px 25px;
+        font-size: 0.9rem;
+    }
+}

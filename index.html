@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransEcoTec - Bienvenido</title>
+
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="split-container">
+        <div class="brand-section">
+            <div class="brand-content">
+                <img src="images/bluetransecotecRlogo.png" alt="TransEcoTec Logo" style="max-height: 150px; margin-bottom: 20px;">
+                <p>Optimizando rutas, reduciendo emisiones. Únete a la red logística del futuro.</p>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="form-container">
+
+                <div class="form-tabs">
+                    <button class="tab-btn active" onclick="switchTab('login')">Iniciar Sesión</button>
+                    <button class="tab-btn" onclick="switchTab('register')">Registrarse</button>
+                </div>
+
+                <form id="loginForm" class="auth-form active-form">
+                    <h2>¡Hola de nuevo!</h2>
+                    <p class="subtitle">Accede a tu panel de control</p>
+
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="loginEmail" placeholder="Correo Electrónico" required>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="loginPassword" placeholder="Contraseña" required>
+                    </div>
+
+                    <button type="submit" class="main-btn">Entrar</button>
+                    <div id="loginMensaje" class="mensaje"></div>
+                </form>
+
+                <form id="registroForm" class="auth-form">
+                    <h2>Crea tu cuenta</h2>
+                    <p class="subtitle">Únete como empresa o transportista</p>
+
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="nombre" placeholder="Nombre / Empresa" required>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" placeholder="Correo Electrónico" required>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Contraseña" required>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fas fa-id-card"></i>
+                        <input type="text" id="cif_dni" placeholder="CIF o DNI" required>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fas fa-file-upload"></i>
+                        <input type="file" id="documento" accept=".pdf, .jpg, .jpeg, .png" required style="padding-top: 10px; background: white;" title="Sube una copia de tu CIF o DNI">
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fas fa-truck"></i>
+                        <select id="rol">
+                            <option value="Empresa">Soy Empresa (Busco transporte)</option>
+                            <option value="Transportista">Soy Transportista (Ofrezco rutas)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="main-btn">Registrarse</button>
+                    <div id="registroMensaje" class="mensaje"></div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="images/transecotecRlogo.png" alt="TransEcoTec Logo" class="logo-img">
+            </div>
+            <div class="footer-links">
+                <a href="legal.html#aviso-legal">Aviso Legal</a>
+                <a href="legal.html#privacidad">Política de Privacidad</a>
+                <a href="legal.html#cookies">Política de Cookies</a>
+                <a href="legal.html#terminos">Términos y Condiciones</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 TransEcoTec&reg;. Todos los derechos reservados. Plataforma de transporte ecológico y eficiente.</p>
+        </div>
+    </footer>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>
