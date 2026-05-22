@@ -1,4 +1,4 @@
-const API_HOST : "http://v0-production-3459.up.railway.app"
+const API_HOST = "http://v0-production-3459.up.railway.app"
 // =========================================================
 // 1. Lógica para alternar entre Login y Registro (Pestañas)
 // =========================================================
@@ -58,7 +58,7 @@ document.getElementById('registroForm').addEventListener('submit', function(e) {
         };
 
         // 4. Enviar datos al backend
-        fetch(${API_HOST}+'/api/usuarios', {
+        fetch(API_HOST+'/api/usuarios', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
