@@ -1,4 +1,4 @@
-const API_HOST = "http://v0-production-3459.up.railway.app"
+const API_HOST = "https://v0-production-3459.up.railway.app"
 // =========================================================
 // 1. Lógica para alternar entre Login y Registro (Pestañas)
 // =========================================================
