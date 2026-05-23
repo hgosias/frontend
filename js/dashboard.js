@@ -1,3 +1,5 @@
+const API_HOST = "https://v0-production-3459.up.railway.app"
+
 // 1. Proteger la ruta: Comprobar si el usuario está logueado
 const usuarioActivoString = localStorage.getItem('usuarioActivo');
 

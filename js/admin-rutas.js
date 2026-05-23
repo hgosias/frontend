@@ -1,3 +1,5 @@
+const API_HOST = "https://v0-production-3459.up.railway.app"
+
 // 1. Proteger la ruta y validar el rol de Administrador
 const usuarioActivoString = localStorage.getItem('usuarioActivo');
 if (!usuarioActivoString) window.location.href = 'index.html';

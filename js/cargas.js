@@ -1,3 +1,5 @@
+const API_HOST = "https://v0-production-3459.up.railway.app"
+
 const usuarioActivoString = localStorage.getItem('usuarioActivo');
 if (!usuarioActivoString) window.location.href = 'index.html';
 
