@@ -174,7 +174,7 @@ if (usuario.rol === 'Transportista') {
 
 // 4. FUNCIONES DE ESTADÍSTICAS
 function cargarEstadisticasTransportista() {
-    fetch(`http://localhost:8080/api/rutas/usuario/${usuario.idUsuario}`)
+    fetch(API_HOST+'/api/rutas/usuario/${usuario.idUsuario}')
     .then(response => {
         if(response.ok) return response.json();
         throw new Error('Error al cargar datos');
@@ -188,7 +188,7 @@ function cargarEstadisticasTransportista() {
 }
 
 function cargarEstadisticasEmpresa() {
-    fetch(`http://localhost:8080/api/cargas/usuario/${usuario.idUsuario}`)
+    fetch(API_HOST+'/api/cargas/usuario/${usuario.idUsuario}')
     .then(response => {
         if(response.ok) return response.json();
         throw new Error('Error al cargar datos');

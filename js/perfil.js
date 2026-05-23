@@ -56,7 +56,7 @@ document.getElementById('formPerfil').addEventListener('submit', function(e) {
         contrasena: document.getElementById('perfilPassword').value 
     };
 
-    fetch(`http://localhost:8080/api/usuarios/${usuario.idUsuario}`, {
+    fetch(API_HOST+'/api/usuarios/${usuario.idUsuario}', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(datosActualizados)

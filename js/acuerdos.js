@@ -84,7 +84,7 @@ if (usuario.rol === 'Transportista') {
 
 // 3. Cargar Acuerdos
 function cargarAcuerdos() {
-    fetch(`http://localhost:8080/api/ofertas/usuario/${usuario.idUsuario}`)
+    fetch(API_HOST+'/api/ofertas/usuario/${usuario.idUsuario}')
     .then(response => {
         if(response.ok) return response.json();
         throw new Error('Error al cargar acuerdos');
@@ -176,7 +176,7 @@ function cargarAcuerdos() {
 // 4. Cambiar el estado
 function cambiarEstado(idOferta, nuevoEstado) {
     if(confirm(`¿Estás seguro de marcar esta petición como ${nuevoEstado}?`)) {
-        fetch(`http://localhost:8080/api/ofertas/${idOferta}/estado`, {
+        fetch(API_HOST+'/api/ofertas/${idOferta}/estado', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ estado: nuevoEstado })

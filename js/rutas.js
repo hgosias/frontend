@@ -122,11 +122,11 @@ formRuta.addEventListener('submit', function(e) {
     msgDiv.style.color = 'var(--dark-blue)';
     
     // Determinamos si es POST (Crear) o PUT (Editar)
-    let url = 'http://localhost:8080/api/rutas';
+    let url = (API_HOST+'/api/rutas');
     let metodo = 'POST';
 
     if (idRutaEditando !== null) {
-        url = `http://localhost:8080/api/rutas/${idRutaEditando}`;
+        url = (API_HOST+'/api/rutas/${idRutaEditando}');
         metodo = 'PUT';
         msgDiv.innerHTML = "Actualizando ruta...";
     } else {
@@ -161,7 +161,7 @@ formRuta.addEventListener('submit', function(e) {
 function cargarMisRutas() {
     const contenedor = document.getElementById('rutasContainer');
     
-    fetch(`http://localhost:8080/api/rutas/usuario/${usuario.idUsuario}`)
+    fetch(API_HOST+'/api/rutas/usuario/${usuario.idUsuario}')
     .then(response => {
         if(response.ok) return response.json();
         throw new Error('No se pudieron cargar las rutas');
@@ -239,7 +239,7 @@ function eliminarRuta(idRuta) {
     // Pedimos confirmación al usuario antes de borrar
     if(confirm("¿Estás seguro de que deseas eliminar esta ruta? Esta acción no se puede deshacer.")) {
         
-        fetch(`http://localhost:8080/api/rutas/${idRuta}`, {
+        fetch(API_HOST+'/api/rutas/${idRuta}', {
             method: 'DELETE'
         })
         .then(response => {

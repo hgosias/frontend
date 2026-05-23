@@ -27,7 +27,7 @@ let usuariosCacheados = [];
 
 // 3. Cargar TODOS los usuarios de la base de datos
 function cargarTodosLosUsuarios() {
-    fetch('http://localhost:8080/api/usuarios')
+    fetch(API_HOST+'/api/usuarios')
     .then(response => {
         if(response.ok) return response.json();
         throw new Error('Error al obtener datos');
@@ -111,7 +111,7 @@ function verificarUsuario(id, nuevoEstado) {
     const accionTexto = nuevoEstado === 'Verificado' ? 'aprobar' : 'rechazar';
 
     if(confirm(`¿Estás seguro de ${accionTexto} a este usuario?`)) {
-        fetch(`http://localhost:8080/api/usuarios/${id}/verificar`, {
+        fetch(API_HOST+'/api/usuarios/${id}/verificar', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ estado: nuevoEstado })
@@ -129,9 +129,9 @@ function verificarUsuario(id, nuevoEstado) {
 
 // Eliminar usuario
 function eliminarUsuario(idUsuario) {
-    if(confirm("⚠️ ¿Estás totalmente seguro de que deseas eliminar a este usuario de forma permanente? Esta acción no se puede deshacer y borrará toda su información.")) {
+    if(confirm("¿Estás totalmente seguro de que deseas eliminar a este usuario de forma permanente? Esta acción no se puede deshacer y borrará toda su información.")) {
 
-        fetch(`http://localhost:8080/api/usuarios/${idUsuario}`, {
+        fetch(API_HOST+'/api/usuarios/${idUsuario}', {
             method: 'DELETE'
         })
         .then(response => {

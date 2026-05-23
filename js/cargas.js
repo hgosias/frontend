@@ -105,11 +105,11 @@ formCarga.addEventListener('submit', function(e) {
     };
 
     const msgDiv = document.getElementById('mensajeModal');
-    let url = 'http://localhost:8080/api/cargas';
+    let url = (API_HOST+'/api/cargas');
     let metodo = 'POST';
 
     if (idCargaEditando !== null) {
-        url = `http://localhost:8080/api/cargas/${idCargaEditando}`;
+        url = (API_HOST+'/api/cargas/${idCargaEditando}');
         metodo = 'PUT';
         msgDiv.innerHTML = "Actualizando carga...";
     } else {
@@ -138,7 +138,7 @@ formCarga.addEventListener('submit', function(e) {
 
 function cargarMisCargas() {
     const contenedor = document.getElementById('cargasContainer');
-    fetch(`http://localhost:8080/api/cargas/usuario/${usuario.idUsuario}`)
+    fetch(API_HOST+'/api/cargas/usuario/${usuario.idUsuario}')
     .then(response => {
         if(response.ok) return response.json();
         throw new Error('No se pudieron cargar las cargas');
@@ -199,7 +199,7 @@ function abrirModalEdicion(cargaEncoded) {
 
 function eliminarCarga(idCarga) {
     if(confirm("¿Seguro que deseas eliminar esta carga?")) {
-        fetch(`http://localhost:8080/api/cargas/${idCarga}`, { method: 'DELETE' })
+        fetch(API_HOST+'/api/cargas/${idCarga}', { method: 'DELETE' })
         .then(response => { if(response.ok) cargarMisCargas(); else alert("Error al eliminar."); })
         .catch(error => alert("Error de conexión."));
     }

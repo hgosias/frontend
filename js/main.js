@@ -112,7 +112,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     msgDiv.innerHTML = "Comprobando credenciales...";
     
     // Llamada REAL al backend
-    fetch('http://localhost:8080/api/usuarios/login', {
+    fetch(API_HOST+'/api/usuarios/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 

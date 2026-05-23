@@ -25,7 +25,7 @@ if (menuToggleBtn && sidebar) {
 
 // 3. Cargar el listado global de rutas
 function cargarRutasGlobales() {
-    fetch('http://localhost:8080/api/rutas')
+    fetch(API_HOST+'/api/rutas')
     .then(response => {
         if (response.ok) return response.json();
         throw new Error('Error al conectar con la base de datos de rutas.');
@@ -74,7 +74,7 @@ function cargarRutasGlobales() {
 // 4. Lógica de eliminación forzada por el Admin
 function eliminarRutaInapropiada(idRuta) {
     if (confirm(`¿Estás completamente seguro de que deseas eliminar la ruta #${idRuta}? Esta acción cancelará las publicaciones del transportista.`)) {
-        fetch(`http://localhost:8080/api/rutas/${idRuta}`, {
+        fetch(API_HOST+'/api/rutas/${idRuta}', {
             method: 'DELETE'
         })
         .then(response => {

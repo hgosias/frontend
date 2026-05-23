@@ -94,11 +94,11 @@ let urlFetch = '';
 if (usuario.rol === 'Transportista') {
     titulo.textContent = 'Buscador de Cargas (Mercancía)';
     subtitulo.textContent = 'Encuentra empresas que necesiten transportar mercancía en tus rutas habituales.';
-    urlFetch = 'http://localhost:8080/api/cargas'; 
+    urlFetch = (API_HOST+'/api/cargas');
 } else if (usuario.rol === 'Empresa') {
     titulo.textContent = 'Buscador de Rutas (Transportistas)';
     subtitulo.textContent = 'Encuentra transportistas con espacio disponible en la ruta que necesitas.';
-    urlFetch = 'http://localhost:8080/api/rutas'; 
+    urlFetch = (API_HOST+'/api/rutas');
 }
 
 // 3. Obtener los datos de Spring Boot
@@ -237,7 +237,7 @@ document.getElementById('formOferta').addEventListener('submit', function(e) {
         datosOferta.idCarga = idElementoSeleccionado; 
     }
 
-    fetch('http://localhost:8080/api/ofertas', {
+    fetch(API_HOST+'/api/ofertas', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(datosOferta)
