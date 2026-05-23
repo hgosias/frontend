@@ -1,4 +1,4 @@
-const API_HOST = "https://v0-production-3459.up.railway.app"
+const API_HOST = "https://v0-production-3459.up.railway.app";
 
 // 1. Proteger la ruta y cargar datos
 const usuarioActivoString = localStorage.getItem('usuarioActivo');
@@ -55,10 +55,11 @@ document.getElementById('formPerfil').addEventListener('submit', function(e) {
         nombre: document.getElementById('perfilNombre').value,
         email: document.getElementById('perfilEmail').value,
         cifDni: document.getElementById('perfilCifDni').value,
-        contrasena: document.getElementById('perfilPassword').value 
+        contrasena: document.getElementById('perfilPassword').value
     };
 
-    fetch(API_HOST+'/api/usuarios/${usuario.idUsuario}', {
+    // CORREGIDO: Sintaxis limpia de concatenación para enviar el ID real
+    fetch(API_HOST + '/api/usuarios/' + usuario.idUsuario, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(datosActualizados)

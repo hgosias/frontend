@@ -1,4 +1,4 @@
-const API_HOST = "https://v0-production-3459.up.railway.app"
+const API_HOST = "https://v0-production-3459.up.railway.app";
 
 // 1. Proteger la ruta y comprobar que es Admin
 const usuarioActivoString = localStorage.getItem('usuarioActivo');
@@ -29,7 +29,8 @@ let usuariosCacheados = [];
 
 // 3. Cargar TODOS los usuarios de la base de datos
 function cargarTodosLosUsuarios() {
-    fetch(API_HOST+'/api/usuarios')
+    // CORREGIDO: Concatenación limpia
+    fetch(API_HOST + '/api/usuarios')
     .then(response => {
         if(response.ok) return response.json();
         throw new Error('Error al obtener datos');
@@ -113,7 +114,8 @@ function verificarUsuario(id, nuevoEstado) {
     const accionTexto = nuevoEstado === 'Verificado' ? 'aprobar' : 'rechazar';
 
     if(confirm(`¿Estás seguro de ${accionTexto} a este usuario?`)) {
-        fetch(API_HOST+'/api/usuarios/${id}/verificar', {
+        // CORREGIDO: Usando concatenación con +
+        fetch(API_HOST + '/api/usuarios/' + id + '/verificar', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ estado: nuevoEstado })
@@ -133,7 +135,8 @@ function verificarUsuario(id, nuevoEstado) {
 function eliminarUsuario(idUsuario) {
     if(confirm("¿Estás totalmente seguro de que deseas eliminar a este usuario de forma permanente? Esta acción no se puede deshacer y borrará toda su información.")) {
 
-        fetch(API_HOST+'/api/usuarios/${idUsuario}', {
+        // CORREGIDO: Usando concatenación con +
+        fetch(API_HOST + '/api/usuarios/' + idUsuario, {
             method: 'DELETE'
         })
         .then(response => {

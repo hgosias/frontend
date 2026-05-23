@@ -1,4 +1,4 @@
-const API_HOST = "https://v0-production-3459.up.railway.app"
+const API_HOST = "https://v0-production-3459.up.railway.app";
 
 const usuarioActivoString = localStorage.getItem('usuarioActivo');
 if (!usuarioActivoString) window.location.href = 'index.html';
@@ -37,7 +37,7 @@ if (roleBadge && !document.getElementById('badgeEstadoVisual')) {
     } else {
         badgeEstado.style.backgroundColor = '#f39c12'; // Naranja (Pendiente)
     }
-    
+
     // Insertar justo antes de la etiqueta de Transportista/Empresa
     roleBadge.parentNode.insertBefore(badgeEstado, roleBadge);
 }
@@ -45,7 +45,7 @@ if (roleBadge && !document.getElementById('badgeEstadoVisual')) {
 // 2. Bloquear funciones básicas si la cuenta está RECHAZADA
 if (estado === 'Rechazado') {
     const mainContent = document.querySelector('.main-content');
-    
+
     // A. Mostrar cartel de advertencia al inicio de la página
     if (mainContent && !document.getElementById('alertaRechazo')) {
         const alerta = document.createElement('div');
@@ -57,7 +57,7 @@ if (estado === 'Rechazado') {
         alerta.style.borderLeft = '4px solid #e74c3c';
         alerta.style.marginBottom = '20px';
         alerta.innerHTML = '<strong><i class="fas fa-ban"></i> Cuenta Rechazada:</strong> Tu documentación no ha sido validada. Las funciones de publicación y contacto están bloqueadas. Ve a "Mi Perfil" para revisar y actualizar tus datos.';
-        
+
         mainContent.insertBefore(alerta, mainContent.firstChild);
     }
 
@@ -67,13 +67,13 @@ if (estado === 'Rechazado') {
 
     const formCarga = document.getElementById('formCarga');
     if (formCarga) formCarga.style.display = 'none';
-    
+
     // C. Ocultar botones de enviar ofertas o aceptar acuerdos mediante CSS inyectado
     const style = document.createElement('style');
     style.innerHTML = `
         /* Oculta los botones de contactar en el buscador */
         .ruta-card .main-btn { display: none !important; }
-        
+
         /* Oculta los botones de aceptar/rechazar en mis acuerdos */
         .acuerdo-acciones { display: none !important; }
     `;
@@ -107,11 +107,12 @@ formCarga.addEventListener('submit', function(e) {
     };
 
     const msgDiv = document.getElementById('mensajeModal');
-    let url = (API_HOST+'/api/cargas');
+    let url = API_HOST + '/api/cargas';
     let metodo = 'POST';
 
     if (idCargaEditando !== null) {
-        url = (API_HOST+'/api/cargas/${idCargaEditando}');
+        // CORREGIDO: Usando concatenación con +
+        url = API_HOST + '/api/cargas/' + idCargaEditando;
         metodo = 'PUT';
         msgDiv.innerHTML = "Actualizando carga...";
     } else {
@@ -140,13 +141,14 @@ formCarga.addEventListener('submit', function(e) {
 
 function cargarMisCargas() {
     const contenedor = document.getElementById('cargasContainer');
-    fetch(API_HOST+'/api/cargas/usuario/${usuario.idUsuario}')
+    // CORREGIDO: Usando concatenación con +
+    fetch(API_HOST + '/api/cargas/usuario/' + usuario.idUsuario)
     .then(response => {
         if(response.ok) return response.json();
         throw new Error('No se pudieron cargar las cargas');
     })
     .then(cargas => {
-        contenedor.innerHTML = ''; 
+        contenedor.innerHTML = '';
         if (cargas.length === 0) {
             contenedor.innerHTML = '<p style="color: #666; grid-column: 1/-1;">Aún no has publicado ninguna carga.</p>';
             return;
@@ -201,7 +203,8 @@ function abrirModalEdicion(cargaEncoded) {
 
 function eliminarCarga(idCarga) {
     if(confirm("¿Seguro que deseas eliminar esta carga?")) {
-        fetch(API_HOST+'/api/cargas/${idCarga}', { method: 'DELETE' })
+        // CORREGIDO: Usando concatenación con +
+        fetch(API_HOST + '/api/cargas/' + idCarga, { method: 'DELETE' })
         .then(response => { if(response.ok) cargarMisCargas(); else alert("Error al eliminar."); })
         .catch(error => alert("Error de conexión."));
     }

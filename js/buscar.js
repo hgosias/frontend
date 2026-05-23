@@ -1,4 +1,4 @@
-const API_HOST = "https://v0-production-3459.up.railway.app"
+const API_HOST = "https://v0-production-3459.up.railway.app";
 
 // 1. Proteger la ruta y cargar datos
 const usuarioActivoString = localStorage.getItem('usuarioActivo');
@@ -13,7 +13,6 @@ document.getElementById('userRoleBadge').textContent = usuario.rol;
 // --- SISTEMA DE ESTADO VISUAL Y RESTRICCIONES ---
 const estado = usuario.estadoVerificacion || 'Pendiente';
 const roleBadge = document.getElementById('userRoleBadge');
-
 // 1. Crear y mostrar la etiqueta de estado a la izquierda del rol en la Navbar
 if (roleBadge && !document.getElementById('badgeEstadoVisual')) {
     const badgeEstado = document.createElement('span');
@@ -34,7 +33,7 @@ if (roleBadge && !document.getElementById('badgeEstadoVisual')) {
     } else {
         badgeEstado.style.backgroundColor = '#f39c12'; // Naranja (Pendiente)
     }
-    
+
     // Insertar justo antes de la etiqueta de Transportista/Empresa
     roleBadge.parentNode.insertBefore(badgeEstado, roleBadge);
 }
@@ -42,7 +41,7 @@ if (roleBadge && !document.getElementById('badgeEstadoVisual')) {
 // 2. Bloquear funciones básicas si la cuenta está RECHAZADA
 if (estado === 'Rechazado') {
     const mainContent = document.querySelector('.main-content');
-    
+
     // A. Mostrar cartel de advertencia al inicio de la página
     if (mainContent && !document.getElementById('alertaRechazo')) {
         const alerta = document.createElement('div');
@@ -54,7 +53,7 @@ if (estado === 'Rechazado') {
         alerta.style.borderLeft = '4px solid #e74c3c';
         alerta.style.marginBottom = '20px';
         alerta.innerHTML = '<strong><i class="fas fa-ban"></i> Cuenta Rechazada:</strong> Tu documentación no ha sido validada. Las funciones de publicación y contacto están bloqueadas. Ve a "Mi Perfil" para revisar y actualizar tus datos.';
-        
+
         mainContent.insertBefore(alerta, mainContent.firstChild);
     }
 
@@ -64,13 +63,13 @@ if (estado === 'Rechazado') {
 
     const formCarga = document.getElementById('formCarga');
     if (formCarga) formCarga.style.display = 'none';
-    
+
     // C. Ocultar botones de enviar ofertas o aceptar acuerdos mediante CSS inyectado
     const style = document.createElement('style');
     style.innerHTML = `
         /* Oculta los botones de contactar en el buscador */
         .ruta-card .main-btn, .btn-ofertar { display: none !important; }
-        
+
         /* Oculta los botones de aceptar/rechazar en mis acuerdos */
         .acuerdo-acciones { display: none !important; }
     `;
@@ -86,7 +85,7 @@ if (usuario.rol === 'Transportista') {
 }
 
 // Variables globales
-let todosLosResultados = []; 
+let todosLosResultados = [];
 
 // 2. Configurar la vista según el rol
 const titulo = document.getElementById('tituloBuscador');
@@ -96,11 +95,13 @@ let urlFetch = '';
 if (usuario.rol === 'Transportista') {
     titulo.textContent = 'Buscador de Cargas (Mercancía)';
     subtitulo.textContent = 'Encuentra empresas que necesiten transportar mercancía en tus rutas habituales.';
-    urlFetch = (API_HOST+'/api/cargas');
+    // CORREGIDO: Sintaxis limpia de concatenación
+    urlFetch = API_HOST + '/api/cargas';
 } else if (usuario.rol === 'Empresa') {
     titulo.textContent = 'Buscador de Rutas (Transportistas)';
     subtitulo.textContent = 'Encuentra transportistas con espacio disponible en la ruta que necesitas.';
-    urlFetch = (API_HOST+'/api/rutas');
+    // CORREGIDO: Sintaxis limpia de concatenación
+    urlFetch = API_HOST + '/api/rutas';
 }
 
 // 3. Obtener los datos de Spring Boot
@@ -117,7 +118,7 @@ function cargarDatosGlobales() {
 
         // Filtro 1: No mostrar nuestras propias publicaciones
         todosLosResultados = data.filter(item => item.usuario && item.usuario.idUsuario !== usuario.idUsuario);
-        
+
         // Filtro 2: Mostrar solo las que estén publicadas (Lo pasamos a mayúsculas para evitar errores de texto)
         todosLosResultados = todosLosResultados.filter(item => item.estado && item.estado.toUpperCase() === 'PUBLICADA');
 
@@ -134,7 +135,7 @@ function cargarDatosGlobales() {
 // 4. Dibujar las tarjetas
 function pintarResultados(lista) {
     const contenedor = document.getElementById('resultadosContainer');
-    contenedor.innerHTML = ''; 
+    contenedor.innerHTML = '';
 
     if (lista.length === 0) {
         contenedor.innerHTML = '<p style="color: #666; grid-column: 1/-1; text-align: center; padding: 2rem;">No hay publicaciones disponibles en este momento.</p>';
@@ -202,16 +203,16 @@ function limpiarFiltros() {
 
 // --- LÓGICA DEL MODAL DE CONTACTO ---
 const modalOferta = document.getElementById('modalOferta');
-let idElementoSeleccionado = null; 
+let idElementoSeleccionado = null;
 
 function abrirModalOferta(idItem) {
     idElementoSeleccionado = idItem;
     document.getElementById('formOferta').reset();
     document.getElementById('mensajeOferta').innerHTML = '';
-    
+
     // Rellenamos automáticamente el email con el del usuario actual
     document.getElementById('emailContacto').value = usuario.email;
-    
+
     modalOferta.style.display = 'flex';
 }
 
@@ -224,7 +225,7 @@ document.getElementById('formOferta').addEventListener('submit', function(e) {
 
     const emailInsertado = document.getElementById('emailContacto').value;
     const msgDiv = document.getElementById('mensajeOferta');
-    
+
     msgDiv.style.color = 'var(--dark-blue)';
     msgDiv.innerHTML = "Enviando datos de contacto...";
 
@@ -234,12 +235,13 @@ document.getElementById('formOferta').addEventListener('submit', function(e) {
     };
 
     if (usuario.rol === 'Empresa') {
-        datosOferta.idRuta = idElementoSeleccionado; 
+        datosOferta.idRuta = idElementoSeleccionado;
     } else if (usuario.rol === 'Transportista') {
-        datosOferta.idCarga = idElementoSeleccionado; 
+        datosOferta.idCarga = idElementoSeleccionado;
     }
 
-    fetch(API_HOST+'/api/ofertas', {
+    // CORREGIDO: Sintaxis limpia de concatenación
+    fetch(API_HOST + '/api/ofertas', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(datosOferta)

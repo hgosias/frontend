@@ -1,4 +1,4 @@
-const API_HOST = "https://v0-production-3459.up.railway.app"
+const API_HOST = "https://v0-production-3459.up.railway.app";
 
 // 1. Proteger ruta
 const usuarioActivoString = localStorage.getItem('usuarioActivo');
@@ -34,7 +34,7 @@ if (roleBadge && !document.getElementById('badgeEstadoVisual')) {
     } else {
         badgeEstado.style.backgroundColor = '#f39c12'; // Naranja (Pendiente)
     }
-    
+
     // Insertar justo antes de la etiqueta de Transportista/Empresa
     roleBadge.parentNode.insertBefore(badgeEstado, roleBadge);
 }
@@ -42,7 +42,7 @@ if (roleBadge && !document.getElementById('badgeEstadoVisual')) {
 // 2. Bloquear funciones básicas si la cuenta está RECHAZADA
 if (estado === 'Rechazado') {
     const mainContent = document.querySelector('.main-content');
-    
+
     // A. Mostrar cartel de advertencia al inicio de la página
     if (mainContent && !document.getElementById('alertaRechazo')) {
         const alerta = document.createElement('div');
@@ -54,7 +54,7 @@ if (estado === 'Rechazado') {
         alerta.style.borderLeft = '4px solid #e74c3c';
         alerta.style.marginBottom = '20px';
         alerta.innerHTML = '<strong><i class="fas fa-ban"></i> Cuenta Rechazada:</strong> Tu documentación no ha sido validada. Las funciones de publicación y contacto están bloqueadas. Ve a "Mi Perfil" para revisar y actualizar tus datos.';
-        
+
         mainContent.insertBefore(alerta, mainContent.firstChild);
     }
 
@@ -64,13 +64,13 @@ if (estado === 'Rechazado') {
 
     const formCarga = document.getElementById('formCarga');
     if (formCarga) formCarga.style.display = 'none';
-    
+
     // C. Ocultar botones de enviar ofertas o aceptar acuerdos mediante CSS inyectado
     const style = document.createElement('style');
     style.innerHTML = `
         /* Oculta los botones de contactar en el buscador */
         .ruta-card .main-btn { display: none !important; }
-        
+
         /* Oculta los botones de aceptar/rechazar en mis acuerdos */
         .acuerdo-acciones { display: none !important; }
     `;
@@ -86,7 +86,8 @@ if (usuario.rol === 'Transportista') {
 
 // 3. Cargar Acuerdos
 function cargarAcuerdos() {
-    fetch(API_HOST+'/api/ofertas/usuario/${usuario.idUsuario}')
+    // CORREGIDO: Usando concatenación con +
+    fetch(API_HOST + '/api/ofertas/usuario/' + usuario.idUsuario)
     .then(response => {
         if(response.ok) return response.json();
         throw new Error('Error al cargar acuerdos');
@@ -94,7 +95,7 @@ function cargarAcuerdos() {
     .then(ofertas => {
         const recibidasContainer = document.getElementById('recibidasContainer');
         const enviadasContainer = document.getElementById('enviadasContainer');
-        
+
         recibidasContainer.innerHTML = '';
         enviadasContainer.innerHTML = '';
 
@@ -105,9 +106,9 @@ function cargarAcuerdos() {
             const estado = oferta.estado;
             // Eres el emisor si tu ID coincide con el que envió la petición
             const esEmisor = oferta.usuarioEmisor.idUsuario === usuario.idUsuario;
-            
+
             let origen = "", destino = "", tipoServicio = "", nombreAnunciante = "";
-            
+
             // Extraer datos dependiendo de si es ruta o carga
             if (oferta.ruta) {
                 origen = oferta.ruta.origen;
@@ -160,7 +161,7 @@ function cargarAcuerdos() {
                 } else {
                     cardHtml += `<p style="font-size: 0.85rem; color: #666; font-style: italic;">Has marcado esta petición como ${estado}.</p>`;
                 }
-                
+
                 cardHtml += `</div>`;
                 recibidasContainer.innerHTML += cardHtml;
             }
@@ -178,7 +179,8 @@ function cargarAcuerdos() {
 // 4. Cambiar el estado
 function cambiarEstado(idOferta, nuevoEstado) {
     if(confirm(`¿Estás seguro de marcar esta petición como ${nuevoEstado}?`)) {
-        fetch(API_HOST+'/api/ofertas/${idOferta}/estado', {
+        // CORREGIDO: Usando concatenación con +
+        fetch(API_HOST + '/api/ofertas/' + idOferta + '/estado', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ estado: nuevoEstado })

@@ -1,4 +1,4 @@
-const API_HOST = "https://v0-production-3459.up.railway.app"
+const API_HOST = "https://v0-production-3459.up.railway.app";
 
 // 1. Proteger la ruta y cargar datos de usuario
 const usuarioActivoString = localStorage.getItem('usuarioActivo');
@@ -38,7 +38,7 @@ if (roleBadge && !document.getElementById('badgeEstadoVisual')) {
     } else {
         badgeEstado.style.backgroundColor = '#f39c12'; // Naranja (Pendiente)
     }
-    
+
     // Insertar justo antes de la etiqueta de Transportista/Empresa
     roleBadge.parentNode.insertBefore(badgeEstado, roleBadge);
 }
@@ -46,7 +46,7 @@ if (roleBadge && !document.getElementById('badgeEstadoVisual')) {
 // 2. Bloquear funciones básicas si la cuenta está RECHAZADA
 if (estado === 'Rechazado') {
     const mainContent = document.querySelector('.main-content');
-    
+
     // A. Mostrar cartel de advertencia al inicio de la página
     if (mainContent && !document.getElementById('alertaRechazo')) {
         const alerta = document.createElement('div');
@@ -58,7 +58,7 @@ if (estado === 'Rechazado') {
         alerta.style.borderLeft = '4px solid #e74c3c';
         alerta.style.marginBottom = '20px';
         alerta.innerHTML = '<strong><i class="fas fa-ban"></i> Cuenta Rechazada:</strong> Tu documentación no ha sido validada. Las funciones de publicación y contacto están bloqueadas. Ve a "Mi Perfil" para revisar y actualizar tus datos.';
-        
+
         mainContent.insertBefore(alerta, mainContent.firstChild);
     }
 
@@ -122,13 +122,14 @@ formRuta.addEventListener('submit', function(e) {
     };
 
     msgDiv.style.color = 'var(--dark-blue)';
-    
+
     // Determinamos si es POST (Crear) o PUT (Editar)
-    let url = (API_HOST+'/api/rutas');
+    let url = API_HOST + '/api/rutas';
     let metodo = 'POST';
 
     if (idRutaEditando !== null) {
-        url = (API_HOST+'/api/rutas/${idRutaEditando}');
+        // CORREGIDO: Sintaxis limpia de concatenación
+        url = API_HOST + '/api/rutas/' + idRutaEditando;
         metodo = 'PUT';
         msgDiv.innerHTML = "Actualizando ruta...";
     } else {
@@ -147,7 +148,7 @@ formRuta.addEventListener('submit', function(e) {
     .then(() => {
         msgDiv.style.color = 'var(--primary-green)';
         msgDiv.innerHTML = idRutaEditando ? "¡Ruta actualizada!" : "¡Ruta publicada con éxito!";
-        
+
         setTimeout(() => {
             cerrarModal();
             cargarMisRutas(); // Recargamos la lista
@@ -162,14 +163,15 @@ formRuta.addEventListener('submit', function(e) {
 // 4. Cargar la lista de Rutas y poner los botones correctos
 function cargarMisRutas() {
     const contenedor = document.getElementById('rutasContainer');
-    
-    fetch(API_HOST+'/api/rutas/usuario/${usuario.idUsuario}')
+
+    // CORREGIDO: Sintaxis limpia de concatenación
+    fetch(API_HOST + '/api/rutas/usuario/' + usuario.idUsuario)
     .then(response => {
         if(response.ok) return response.json();
         throw new Error('No se pudieron cargar las rutas');
     })
     .then(rutas => {
-        contenedor.innerHTML = ''; 
+        contenedor.innerHTML = '';
 
         if (rutas.length === 0) {
             contenedor.innerHTML = '<p style="color: #666; grid-column: 1/-1;">Aún no has publicado ninguna ruta.</p>';
@@ -186,7 +188,7 @@ function cargarMisRutas() {
             if (usuario.rol === 'Administrador' || usuario.idUsuario === ruta.usuario.idUsuario) {
                 // Convertimos el objeto ruta a un string seguro para pasarlo a la función de editar
                 const rutaJson = encodeURIComponent(JSON.stringify(ruta));
-                
+
                 botones += `
                     <button onclick="abrirModalEdicion('${rutaJson}')" class="main-btn" style="background: #f1c40f; color: white; border: none; padding: 5px 10px; font-size: 0.9rem; margin-left: 5px;" title="Editar">
                         <i class="fas fa-edit"></i>
@@ -222,17 +224,17 @@ function cargarMisRutas() {
 // 5. NUEVO: Función para Abrir Modal en modo Edición
 function abrirModalEdicion(rutaEncoded) {
     const ruta = JSON.parse(decodeURIComponent(rutaEncoded));
-    
+
     idRutaEditando = ruta.idRuta; // Guardamos el ID que estamos editando
     tituloModal.textContent = "Editar Ruta";
     document.getElementById('mensajeModal').innerHTML = '';
-    
+
     // Rellenamos el formulario con los datos actuales
     document.getElementById('origen').value = ruta.origen;
     document.getElementById('destino').value = ruta.destino;
     document.getElementById('fecha_salida').value = ruta.fechaSalida;
     document.getElementById('capacidad').value = ruta.capacidadLibre;
-    
+
     modal.style.display = 'flex';
 }
 
@@ -240,8 +242,9 @@ function abrirModalEdicion(rutaEncoded) {
 function eliminarRuta(idRuta) {
     // Pedimos confirmación al usuario antes de borrar
     if(confirm("¿Estás seguro de que deseas eliminar esta ruta? Esta acción no se puede deshacer.")) {
-        
-        fetch(API_HOST+'/api/rutas/${idRuta}', {
+
+        // CORREGIDO: Sintaxis limpia de concatenación
+        fetch(API_HOST + '/api/rutas/' + idRuta, {
             method: 'DELETE'
         })
         .then(response => {

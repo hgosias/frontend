@@ -1,4 +1,4 @@
-const API_HOST = "https://v0-production-3459.up.railway.app"
+const API_HOST = "https://v0-production-3459.up.railway.app";
 
 // 1. Proteger la ruta y validar el rol de Administrador
 const usuarioActivoString = localStorage.getItem('usuarioActivo');
@@ -27,7 +27,8 @@ if (menuToggleBtn && sidebar) {
 
 // 3. Cargar el listado global de rutas
 function cargarRutasGlobales() {
-    fetch(API_HOST+'/api/rutas')
+    // CORREGIDO: Mejorada la concatenación para mantenerlo limpio
+    fetch(API_HOST + '/api/rutas')
     .then(response => {
         if (response.ok) return response.json();
         throw new Error('Error al conectar con la base de datos de rutas.');
@@ -76,7 +77,8 @@ function cargarRutasGlobales() {
 // 4. Lógica de eliminación forzada por el Admin
 function eliminarRutaInapropiada(idRuta) {
     if (confirm(`¿Estás completamente seguro de que deseas eliminar la ruta #${idRuta}? Esta acción cancelará las publicaciones del transportista.`)) {
-        fetch(API_HOST+'/api/rutas/${idRuta}', {
+        // CORREGIDO: Usando concatenación con + para evitar que se envíe el texto literal
+        fetch(API_HOST + '/api/rutas/' + idRuta, {
             method: 'DELETE'
         })
         .then(response => {
