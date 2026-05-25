@@ -60,6 +60,7 @@
         <h2>Publicar Nueva Ruta</h2>
         <form id="formNuevaRuta">
             <div class="input-group">
+                <label for="origen" class="sr-only">Origen</label>
                 <i class="fas fa-map-marker-alt"></i>
                 <select id="origen" required>
                     <option value="">Selecciona origen...</option>
@@ -113,6 +114,7 @@
                 </select>
             </div>
             <div class="input-group">
+                <label for="destino" class="sr-only">Destino</label>
                 <i class="fas fa-flag-checkered"></i>
                 <select id="destino" required>
                     <option value="">Selecciona destino...</option>
@@ -167,10 +169,12 @@
             </div>
             <div class="form-row">
                 <div class="input-group">
+                    <label for="fecha_salida" class="sr-only">Fecha de salida</label>
                     <i class="fas fa-calendar-alt"></i>
                     <input type="date" id="fecha_salida" required title="Fecha de salida">
                 </div>
                 <div class="input-group">
+                    <label for="capacidad" class="sr-only">Capacidad disponible</label>
                     <i class="fas fa-weight-hanging"></i>
                     <select id="capacidad" required>
                         <option value="">Capacidad (kg)...</option>
