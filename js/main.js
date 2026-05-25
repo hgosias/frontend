@@ -33,7 +33,17 @@ document.getElementById('registroForm').addEventListener('submit', function(e) {
         msgDiv.innerHTML = "La contraseña debe tener al menos 5 caracteres.";
         return; // Detiene la ejecución aquí para que no registre al usuario
     }
-    // --------------------------------------
+    
+    // --- NUEVA VALIDACIÓN CIF/DNI ---
+    const cifDniInput = document.getElementById('cif_dni').value.trim();
+    // Regex: 8 números y 1 letra (DNI) O 1 letra, 7 números y 1 caracter final (CIF)
+    const regexCifDni = /^(?:\d{8}[A-Za-z]|[A-Za-z]\d{7}[A-Za-z0-9])$/;
+    
+    if (!regexCifDni.test(cifDniInput)) {
+        msgDiv.style.color = '#e74c3c';
+        msgDiv.innerHTML = "EL FORMATO DEBE SER 00000000X o 0000000X";
+        return; // Detiene la ejecución aquí para que no registre al usuario
+    }
 
     msgDiv.style.color = 'var(--dark-blue)';
     msgDiv.innerHTML = "Procesando documento y registro...";
