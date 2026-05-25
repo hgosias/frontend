@@ -150,7 +150,7 @@ function cargarMisCargas() {
     .then(cargas => {
         contenedor.innerHTML = '';
         if (cargas.length === 0) {
-            contenedor.innerHTML = '<p style="color: #666; grid-column: 1/-1;">Aún no has publicado ninguna carga.</p>';
+            contenedor.innerHTML = '<p style="color: #667; grid-column: 1/-1;">Aún no has publicado ninguna carga.</p>';
             return;
         }
 

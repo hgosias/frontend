@@ -120,7 +120,7 @@ h2 {
 }
 
 .subtitle {
-    color: #666;
+    color: #667;
     margin-bottom: 20px;
     font-size: 0.9rem;
 }
@@ -560,7 +560,7 @@ h2 {
 }
 
 .stat-card p {
-    color: #666;
+    color: #667;
     font-size: 0.9rem;
 }
 
@@ -975,7 +975,7 @@ h2 {
 }
 
 .carga-details {
-    color: #666;
+    color: #667;
     font-size: 0.9rem;
     margin-bottom: 15px;
 }
@@ -1035,7 +1035,7 @@ h2 {
 }
 
 .ruta-details {
-    color: #666;
+    color: #667;
     font-size: 0.9rem;
     margin-bottom: 15px;
 }
@@ -1536,4 +1536,182 @@ textarea {
         padding: 6px 0 6px 25px;
         font-size: 0.9rem;
     }
+}
+
+/* ========================================= */
+/* --- CLASES UTILITARIAS (MOVIDO DE ESTAR METIDO EN LOS PROPIOS HTML INLINE) --- */
+/* ========================================= */
+
+/* Subtítulo del page-header */
+.page-header-subtitle {
+    color: #667;
+    margin-top: 5px;
+}
+
+/* Texto de carga/placeholder con color gris */
+.text-loading {
+    color: #999;
+}
+
+/* Logo de la marca en index.html */
+.brand-logo-img {
+    max-height: 150px;
+    margin-bottom: 20px;
+}
+
+/* Input de archivo (registro) */
+.input-file {
+    padding-top: 10px;
+    background: white;
+}
+
+/* Descripción del área de acción (dashboard) */
+.action-desc {
+    margin: 10px 0 20px;
+}
+
+/* Botón de acción del dashboard */
+.action-area .main-btn {
+    width: auto;
+    padding: 10px 30px;
+}
+
+/* Badge del admin */
+.badge-admin {
+    background-color: #f39c12;
+}
+
+/* Celda centrada en tabla */
+.text-center {
+    text-align: center;
+}
+
+/* Texto silenciado */
+.text-muted {
+    color: #667;
+    margin-top: 5px;
+}
+
+/* Contenedor de tabla con scroll horizontal */
+.table-container {
+    overflow-x: auto;
+}
+
+/* Botón limpiar filtros del buscador */
+.btn-search-clear {
+    background: white;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+/* Modal de oferta (buscar.html) - Override del modal genérico */
+#modalOferta .modal {
+    padding: 2rem;
+    max-width: 400px;
+}
+
+/* Descripción del modal de oferta */
+.modal-oferta-desc {
+    color: #667;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+/* Input group del modal de oferta */
+.modal-oferta-input-group {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+/* Icono dentro del input del modal de oferta */
+.modal-oferta-input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+}
+
+/* Input del email en modal de oferta */
+.modal-oferta-input-group input {
+    width: 100%;
+    padding: 12px 15px 12px 45px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+/* Botón submit del modal de oferta / perfil */
+.btn-submit-full {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Mensaje del modal de oferta */
+.mensaje-modal {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+/* Botón submit del formulario de perfil */
+.btn-submit-perfil {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Mensaje del perfil */
+.mensaje-perfil {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Rol en tarjeta de perfil */
+.perfil-card-rol {
+    color: #667;
+    margin-bottom: 15px;
+}
+
+/* Sección de verificación en perfil */
+.perfil-verificacion-section {
+    border-top: 1px solid var(--border-color);
+    padding-top: 15px;
+    margin-top: 15px;
+}
+
+/* Label de estado de verificación */
+.perfil-verificacion-label {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Texto de verificación */
+.perfil-verificacion-text {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 10px;
+}
+
+/* Botón submit de ruta con margen superior */
+.main-btn-mt {
+    margin-top: 15px;
+}
+
+/* Visor de documento modal */
+.visor-container {
+    /* contenedor del visor de documentos */
 }

@@ -132,7 +132,7 @@ function cargarAcuerdos() {
                 // --- VISTA DE PETICIÓN ENVIADA ---
                 contEnviadas++;
                 cardHtml += `
-                    <p style="font-size: 0.9rem; color: #666;">Petición enviada a: <strong>${nombreAnunciante}</strong></p>
+                    <p style="font-size: 0.9rem; color: #667;">Petición enviada a: <strong>${nombreAnunciante}</strong></p>
                     <div class="acuerdo-contacto">
                         <p><i class="fas fa-envelope"></i> Contacto enviado: ${oferta.emailContacto}</p>
                     </div>
@@ -144,7 +144,7 @@ function cargarAcuerdos() {
                 // --- VISTA DE PETICIÓN RECIBIDA ---
                 contRecibidas++;
                 cardHtml += `
-                    <p style="font-size: 0.9rem; color: #666;">Sobre: ${tipoServicio}</p>
+                    <p style="font-size: 0.9rem; color: #667;">Sobre: ${tipoServicio}</p>
                     <div class="acuerdo-contacto">
                         <p><i class="fas fa-user"></i> De: ${oferta.usuarioEmisor.nombre}</p>
                         <p><i class="fas fa-envelope"></i> Email: <strong>${oferta.emailContacto}</strong></p>
@@ -159,7 +159,7 @@ function cargarAcuerdos() {
                         </div>
                     `;
                 } else {
-                    cardHtml += `<p style="font-size: 0.85rem; color: #666; font-style: italic;">Has marcado esta petición como ${estado}.</p>`;
+                    cardHtml += `<p style="font-size: 0.85rem; color: #667; font-style: italic;">Has marcado esta petición como ${estado}.</p>`;
                 }
 
                 cardHtml += `</div>`;
@@ -167,8 +167,8 @@ function cargarAcuerdos() {
             }
         });
 
-        if (contRecibidas === 0) recibidasContainer.innerHTML = '<p style="color: #666;">No has recibido peticiones de contacto.</p>';
-        if (contEnviadas === 0) enviadasContainer.innerHTML = '<p style="color: #666;">No has enviado ninguna petición.</p>';
+        if (contRecibidas === 0) recibidasContainer.innerHTML = '<p style="color: #667;">No has recibido peticiones de contacto.</p>';
+        if (contEnviadas === 0) enviadasContainer.innerHTML = '<p style="color: #667;">No has enviado ninguna petición.</p>';
     })
     .catch(error => {
         document.getElementById('recibidasContainer').innerHTML = '<p style="color: #e74c3c;">Error al conectar con el servidor.</p>';

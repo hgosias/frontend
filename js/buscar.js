@@ -138,7 +138,7 @@ function pintarResultados(lista) {
     contenedor.innerHTML = '';
 
     if (lista.length === 0) {
-        contenedor.innerHTML = '<p style="color: #666; grid-column: 1/-1; text-align: center; padding: 2rem;">No hay publicaciones disponibles en este momento.</p>';
+        contenedor.innerHTML = '<p style="color: #667; grid-column: 1/-1; text-align: center; padding: 2rem;">No hay publicaciones disponibles en este momento.</p>';
         return;
     }
 

@@ -42,7 +42,7 @@
         <main class="main-content">
             <div class="page-header">
                 <h1 id="tituloBuscador">Buscador de Oportunidades</h1>
-                <p id="subtituloBuscador" style="color: #666; margin-top: 5px;">Cargando preferencias...</p>
+                <p id="subtituloBuscador" class="page-header-subtitle">Cargando preferencias...</p>
             </div>
 
             <div class="search-bar">
@@ -55,29 +55,29 @@
                     <input type="text" id="filtroDestino" placeholder="Ciudad de Destino...">
                 </div>
                 <button class="btn-search" onclick="aplicarFiltros()"><i class="fas fa-search"></i> Filtrar</button>
-                <button class="btn-search" style="background: white; color: var(--text-color); border: 1px solid var(--border-color);" onclick="limpiarFiltros()">Limpiar</button>
+                <button class="btn-search btn-search-clear" onclick="limpiarFiltros()">Limpiar</button>
             </div>
 
             <div class="resultados-grid" id="resultadosContainer">
-                <p style="color: #999;">Cargando datos...</p>
+                <p class="text-loading">Cargando datos...</p>
             </div>
         </main>
     </div>
 
-    <div class="modal-overlay" id="modalOferta" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
-        <div class="modal" style="background: white; padding: 2rem; border-radius: 10px; width: 90%; max-width: 400px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
-            <button class="close-btn" onclick="cerrarModalOferta()" style="float: right; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #999;">&times;</button>
-            <h2 style="color: var(--dark-blue); margin-bottom: 1rem;">Contactar Anunciante</h2>
-            <p style="color: #666; margin-bottom: 1.5rem; font-size: 0.9rem;">Facilita tu correo electrónico para que el anunciante pueda contactarte y negociar las condiciones.</p>
+    <div class="modal-overlay" id="modalOferta">
+        <div class="modal">
+            <button class="close-btn" onclick="cerrarModalOferta()">&times;</button>
+            <h2>Contactar Anunciante</h2>
+            <p class="modal-oferta-desc">Facilita tu correo electrónico para que el anunciante pueda contactarte y negociar las condiciones.</p>
             
             <form id="formOferta">
-                <div class="input-group" style="position: relative; margin-bottom: 15px;">
-                    <i class="fas fa-envelope" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #999;"></i>
-                    <input type="email" id="emailContacto" placeholder="Tu correo electrónico..." required style="width: 100%; padding: 12px 15px 12px 45px; border: 1px solid var(--border-color); border-radius: 8px;">
+                <div class="input-group modal-oferta-input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="emailContacto" placeholder="Tu correo electrónico..." required>
                 </div>
                 
-                <button type="submit" class="main-btn" style="width: 100%; padding: 12px; background-color: var(--primary-green); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px;">Enviar Petición</button>
-                <div id="mensajeOferta" class="mensaje" style="margin-top: 15px; text-align: center; font-size: 0.9rem; font-weight: bold;"></div>
+                <button type="submit" class="main-btn btn-submit-full">Enviar Petición</button>
+                <div id="mensajeOferta" class="mensaje mensaje-modal"></div>
             </form>
         </div>
     </div>

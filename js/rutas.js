@@ -174,7 +174,7 @@ function cargarMisRutas() {
         contenedor.innerHTML = '';
 
         if (rutas.length === 0) {
-            contenedor.innerHTML = '<p style="color: #666; grid-column: 1/-1;">Aún no has publicado ninguna ruta.</p>';
+            contenedor.innerHTML = '<p style="color: #667; grid-column: 1/-1;">Aún no has publicado ninguna ruta.</p>';
             return;
         }
 

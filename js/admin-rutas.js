@@ -38,7 +38,7 @@ function cargarRutasGlobales() {
         tbody.innerHTML = '';
 
         if (rutas.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #666;">No hay rutas publicadas actualmente en la plataforma.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #667;">No hay rutas publicadas actualmente en la plataforma.</td></tr>';
             return;
         }
 
